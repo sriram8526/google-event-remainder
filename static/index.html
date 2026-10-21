@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Celebration &amp; Event Planner</title>
+  <meta name="description" content="Plan weddings, birthdays and community events with a budget, timeline, vendor checklist and ideas.">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#plan-form">Skip to the planning form</a>
+  <!-- Mounted at load so screen readers register it before the first announcement. -->
+  <div id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+  <noscript><p class="error">This planner needs JavaScript to build your plan. Please enable it and reload.</p></noscript>
+  <header class="masthead">
+    <h1>Plan the day. Keep the budget honest.</h1>
+    <p>Tell us about your event. You get a budget split, a dated timeline, a vendor checklist and ideas shaped to your guests.</p>
+  </header>
+
+  <main>
+    <form id="plan-form" novalidate aria-describedby="form-hint">
+      <p id="form-hint" class="hint">Fields marked required must be filled in. Nothing is stored. Personalised ideas come from an AI model, so check details before you book.</p>
+
+      <div class="grid">
+        <div class="field">
+          <label for="event_type">Event type (required)</label>
+          <select id="event_type" name="event_type" required>
+            <option value="wedding">Wedding</option>
+            <option value="birthday">Birthday</option>
+            <option value="community">Community event</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="event_date">Event date (required)</label>
+          <input id="event_date" name="event_date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="guest_count">Number of guests (required)</label>
+          <input id="guest_count" name="guest_count" type="number" min="1" max="5000" inputmode="numeric" required>
+        </div>
+        <div class="field">
+          <label for="budget">Total budget (required)</label>
+          <div class="pair">
+            <input id="budget" name="budget" type="number" min="1" step="0.01" inputmode="decimal" required>
+            <select id="currency" name="currency" aria-label="Currency">
+              <option>INR</option><option>USD</option><option>EUR</option><option>GBP</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="location">Location</label>
+          <input id="location" name="location" type="text" maxlength="80" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="theme">Theme or style</label>
+          <input id="theme" name="theme" type="text" maxlength="80" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="venue">Venue type</label>
+          <select id="venue" name="venue">
+            <option value="indoor">Indoor</option>
+            <option value="outdoor">Outdoor</option>
+            <option value="hybrid">Indoor and outdoor</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="interests">Interests, separated by commas</label>
+          <input id="interests" name="interests" type="text" maxlength="320" aria-describedby="interests-hint" autocomplete="off">
+          <span id="interests-hint" class="hint">Up to 8, for example: cricket, jazz, gardening</span>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>Dietary needs</legend>
+        <div class="checks" id="dietary">
+          <label><input type="checkbox" value="vegetarian"> Vegetarian</label>
+          <label><input type="checkbox" value="vegan"> Vegan</label>
+          <label><input type="checkbox" value="halal"> Halal</label>
+          <label><input type="checkbox" value="jain"> Jain</label>
+          <label><input type="checkbox" value="gluten_free"> Gluten-free</label>
+          <label><input type="checkbox" value="nut_allergy"> Nut allergy</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Guests</legend>
+        <div class="checks">
+          <label><input type="checkbox" id="needs_accessibility"> Some guests need accessibility support</label>
+          <label><input type="checkbox" id="has_children"> Children will attend</label>
+        </div>
+      </fieldset>
+
+      <div id="form-error" class="error" role="alert" hidden></div>
+      <button type="submit" id="submit">Create my plan</button>
+    </form>
+
+    <section id="results" tabindex="-1" aria-label="Your plan" hidden></section>
+  </main>
+
+  <footer>Planning guidance is an estimate. Confirm prices, permits and safety requirements with local providers.</footer>
+</body>
+</html>
